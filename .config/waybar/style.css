@@ -1,0 +1,144 @@
+* {
+    font-family: JetBrainsMono, fa;
+    font-size: 13px;
+    font-style: normal;
+}
+
+window#waybar {
+    background: #282a36;
+    border-radius: 26px;
+    /*border: 1px solid #808080;*/
+    margin-bottom: 10px;
+}
+
+tooltip {
+    color: #f8f8f2;
+    background: #282a36;
+    border-radius: 10px;
+    border: 1px solid #808080;
+}
+
+#workspaces {
+    margin: 8px 4px 8px 12px;
+    border-radius: 26px;
+    background: #282a36;
+    transition: none;
+}
+
+#workspaces button {
+    transition: none;
+    color: #f8f8f2;
+    background: transparent;
+    font-size: 16px;
+    border: none;
+}
+
+#workspaces button.active {
+    color: #4d4d4d;
+    background: #9aedfe;
+    border-radius: 32px;
+}
+
+#workspaces button.active:hover {
+    color: #4d4d4d;
+    background: #9aedfe;
+    border-radius: 32px;
+}
+
+#workspaces button:hover {
+    transition: none;
+    box-shadow: inherit;
+    text-shadow: inherit;
+    color: #9aedfe;
+}
+
+#mpris {
+    margin: 8px 4px 8px 12px;
+    padding: 0 16px 0 16px;
+    border-radius: 26px;
+    background: #282a36;
+    transition: none;
+    color: #4d4d4d;
+    background: #aaff91;
+}
+
+
+#custom-wallpaper {
+    margin: 8px 4px 8px 12px;
+    padding: 0 8px 0 8px;
+    border-radius: 26px;
+    color: #4d4d4d;
+    background: #f8f8f2;
+}
+
+#network {
+    margin: 8px 4px 8px 12px;
+    padding: 0 16px 0 16px;
+    border-radius: 26px;
+    transition: none;
+    color: #4d4d4d;
+    background: #ff8d8d;
+}
+
+#cpu {
+    margin: 8px 4px 8px 12px;
+    padding: 0 16px 0 16px;
+    border-radius: 26px;
+    transition: none;
+    color: #4d4d4d;
+    background: #ffdb8d;
+}
+
+#memory {
+    margin: 8px 4px 8px 12px;
+    padding: 0 16px 0 16px;
+    border-radius: 26px;
+    transition: none;
+    color: #4d4d4d;
+    background: #f7ff91;
+}
+
+#disk {
+    margin: 8px 4px 8px 12px;
+    padding: 0 16px 0 16px;
+    border-radius: 26px;
+    transition: none;
+    color: #4d4d4d;
+    background: #aaff91;
+}
+
+#battery {
+    margin: 8px 4px 8px 12px;
+    padding: 0 16px 0 16px;
+    border-radius: 26px;
+    transition: none;
+    color: #4d4d4d;
+    background: #9aedfe;
+}
+
+#pulseaudio {
+    margin: 8px 4px 8px 12px;
+    padding: 0 16px 0 16px;
+    border-radius: 26px;
+    transition: none;
+    color: #4d4d4d;
+    background: #8d96ff;
+}
+
+#language {
+    margin: 8px 4px 8px 12px;
+    padding: 0 16px 0 16px;
+    border-radius: 26px;
+    transition: none;
+    color: #4d4d4d;
+    background: #cd91ff;
+}
+
+#clock {
+    margin: 8px 4px 8px 12px;
+    padding: 0 16px 0 0px;
+    border-radius: 26px;
+    transition: none;
+    color: #f8f8f2;
+    background: #282a36;
+}

@@ -1,0 +1,41 @@
+# -= Configuration =-
+
+refresh-on-startup yes
+browser "librewolf --new-tab %u"
+
+# -====================-
+
+
+# -= Key bindings =-
+
+# unbind-key	ENTER
+# unbind-key	q
+unbind-key	l
+
+bind-key	l	open
+bind-key	h	quit
+bind-key	j	down
+bind-key	k	up
+
+# -====================-
+
+# -= Macros =-
+
+#macro v set browser "yt-dlp -N 20 -qf 'bv[height<=?1920][fps<=?60]+ba/b' %u -o - | mpv -" ; open-in-browser ; set browser "librewolf --new-tab %u"
+macro v set browser "mpv %u" ; open-in-browser ; set browser "librewolf --new-tab %u"
+macro a set browser "yt-dlp -qf ba %u -o - | mpv -" ; open-in-browser ; set browser "librewolf --new-tab %u"
+macro t set browser "yt-dlp --write-thumbnail --no-download %u -o thumb.temp && sxiv thumb.temp.webp && sleep 0.1 && rm thumb.temp*" ; open-in-browser ; set browser "librewolf --new-tab %u"
+
+# -====================-
+
+# -= Theme =-
+
+color	listnormal	color249	default
+color	listfocus	default	color208
+color	listnormal_unread	color249	default	bold
+color	listfocus_unread	default	color208	bold
+color	info	default	color208
+color	background	default	default
+color	article	default	default
+
+# -===================-
