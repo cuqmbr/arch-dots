@@ -1,0 +1,7 @@
+#!/bin/bash
+
+img_name=$(ls $WALLPAPER_PATH | shuf -n 1)
+img_path=$WALLPAPER_PATH/$img_name
+swww img $img_path  --transition-type grow --transition-fps 60 --transition-duration 1.5 --transition-bezier .73,.095,.3,1
+
+echo $img_name

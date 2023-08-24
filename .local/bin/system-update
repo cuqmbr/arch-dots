@@ -1,0 +1,21 @@
+#!/bin/bash
+
+if [[ $EUID -ne 0 ]]; then
+    echo 'You must run the script with root privileges'
+    exit 2
+fi
+
+snapshot_name=$(date -I)
+snapshot_save_directory='/.snapshots/root'
+
+btrfs subvolume snapshot -r / ${snapshot_save_directory}/${snapshot_name}
+
+su -s /bin/bash -c 'paru -Syu --noconfirm --noprogressbar' updater
+
+if [[ ! $? -eq 0 ]]; then
+    echo 'Update failed. Deleting created snapshot. Canceling snapshot rotation'
+    btrfs subvolume delete ${snapshot_save_directory}/${snapshot_name}
+    exit 1
+fi
+
+cleanup-snapshots

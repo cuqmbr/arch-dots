@@ -1,0 +1,32 @@
+#!/bin/bash
+
+if [[ $EUID -ne 0 ]]; then
+    echo 'You must run the script with root privileges'
+    exit 2
+fi
+
+SECONDS_IN_DAY=$((24 * 60 * 60))
+MAX_AGE_DAYS=14
+
+# Input: file or folder name recognized by 'date -d'
+get-file-age-days() {
+
+    current_date_epoch=$(date +%s)
+    file_date_epoch=$(date -d $1 +%s)
+
+    file_age_days=$(( (current_date_epoch - file_date_epoch) / SECONDS_IN_DAY ))
+
+    echo $file_age_days
+}
+
+
+for snapshot in $(ls -dc1 /.snapshots/root/*/ | sort -r); do
+
+    age_days=$(get-file-age-days $(basename ${snapshot}))
+
+    if [ $age_days -lt $MAX_AGE_DAYS ]; then
+        echo "Skipping '$snapshot'. Age in days is $age_days"
+    else
+        btrfs subvolume delete ${snapshot}
+    fi
+done
