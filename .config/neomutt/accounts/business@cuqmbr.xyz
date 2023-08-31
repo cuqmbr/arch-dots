@@ -1,0 +1,24 @@
+set my_username="business"
+set my_hostname="cuqmbr.xyz"
+set my_address="$my_username@$my_hostname"
+
+## Receive options
+set mbox_type=Maildir
+set folder="~/.mail/$my_address"
+mailboxes +Inbox +Sent +Drafts +Spam +Trash
+set mbox="+Inbox"
+set record="+Sent"
+set postponed="+Drafts"
+set trash="+Trash"
+set spoolfile="+Inbox"
+
+## Send options
+set smtp_pass="`pass show EMail/$my_address`"
+set smtp_url="smtps://$my_username@mail.$my_hostname"
+set realname="cuqmbr's business email address"
+set from="$my_address"
+set hostname="$my_hostname"
+set signature="Regards, business email address of cuqmbr\nbusiness@cuqmbr.xyz\nme@cuqmbr.xyz\nhttps://cuqmbr.xyz"
+# Connection options
+set ssl_force_tls = yes
+unset ssl_starttls

@@ -8,12 +8,13 @@
 
     "modules-left": ["custom/wallpaper", "wlr/workspaces", "mpris"],
     "modules-center": [],
-    "modules-right": ["network", "cpu", "memory", "disk", "battery", "pulseaudio", "hyprland/language", "clock"],
+    "modules-right": ["network", "cpu", "memory", "disk", "battery", "pulseaudio", "hyprland/language", "custom/email", "clock"],
 
     "custom/wallpaper": {
         "format": "",
         "on-click": "/home/${WAYBAR_USER}/.local/bin/shuffle-wallpaper.sh",
-        "tooltip": false
+        "tooltip": true,
+        "tooltip-format": "Shuffle wallpaper"
     },
 
     "wlr/workspaces": {
@@ -37,8 +38,8 @@
         "status-icons": {
             "paused": ""
         },
-	// "ignored-players": ["firefox"],
         "max-length": 50
+    // "ignored-players": ["firefox"],
     },
 
     "network": {
@@ -70,8 +71,8 @@
         "scroll-step": 5,
         "tooltip": false,
         "max-volume": 150,
-        "on-click": "hyprctl keyword exec 'amixer -q set Master toggle'",
-        "on-click-right": "amixer -qc 1 set Capture toggle",
+        "on-click": "pactl set-sink-mute $(pactl info | grep 'Default Sink' | cut -d ' ' -f 3) toggle",
+        "on-click-right": "pactl set-source-mute $(pactl get-default-source) toggle",
         "min-length": 10
     },
 
@@ -132,6 +133,16 @@
         "min-length": 5
     },
 
+    "custom/email": {
+        "interval": 15,
+        "exec": "/home/${WAYBAR_USER}/.local/bin/new-mail",
+        "return-type": "json",
+        "format": " {}",
+        "tooltip": true,
+        "on-click": "hyprctl keyword exec 'kitty neomutt'",
+        "min-length": 6
+    },
+
     "clock": {
         "interval": 5,
         "format": " {:%H:%M}",
@@ -148,7 +159,7 @@
                 "weeks": "<span><b>{}</b></span>",
                 "days": "<span><b>{}</b></span>",
                 "weekdays": "<span><b>{}</b></span>",
-                "today": "<span><b>{}</b></span>",
+                "today": "<span><b>{}</b></span>"
             }
         },
         "actions":  {

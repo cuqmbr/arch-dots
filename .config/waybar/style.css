@@ -71,6 +71,14 @@ tooltip {
     background: #f8f8f2;
 }
 
+#custom-email {
+    margin: 8px 4px 8px 12px;
+    padding: 0 8px 0 8px;
+    border-radius: 26px;
+    color: #4d4d4d;
+    background: #f8f8f2;
+}
+
 #network {
     margin: 8px 4px 8px 12px;
     padding: 0 16px 0 16px;

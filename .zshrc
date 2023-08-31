@@ -28,9 +28,12 @@ export PATH="$HOME/.local/bin:$PATH"
 # Optout of dotnet telemetry collection
 export DOTNET_CLI_TELEMETRY_OPTOUT="1"
 
-# User-defined aliases
+# User-defined config
 
 alias config='/usr/bin/git --git-dir=$HOME/.config-git/ --work-tree=$HOME'
+alias mbsync="mbsync -c \"$XDG_CONFIG_HOME/isync/mbsyncrc\""
+alias vim="nvim"
+export EDITOR=/usr/bin/vim
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,

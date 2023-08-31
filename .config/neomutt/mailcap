@@ -1,0 +1,5 @@
+text/html; w3m -dump -T text/html %s | less
+application/pdf; zathura %s &
+image/*; sxiv %s &
+audio/*; mpv --no-terminal %s &
+video/*; mpv --no-terminal %s &

@@ -1,0 +1,16 @@
+#!/bin/bash
+
+mail_directory="$HOME/.mail"
+inbox_path="Inbox/new"
+main_mailbox_name="me@cuqmbr.xyz"
+
+text=$(ls ${mail_directory}/${main_mailbox_name}/${inbox_path} | wc -l)
+
+tooltip=""
+for mailbox_name in $(ls ${mail_directory}); do
+    new_count=$(ls ${mail_directory}/${mailbox_name}/${inbox_path} | wc -l)
+    tooltip="${tooltip}${mailbox_name}: ${new_count}\n"
+done
+tooltip=$(echo ${tooltip} | sed -e 's/\\n$//')
+
+echo "{\"text\": \"$text\", \"alt\": \"some alt text\", \"tooltip\": \"$tooltip\", \"class\": \"email\", \"percentage\": 100 }"

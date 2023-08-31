@@ -30,12 +30,20 @@ macro t set browser "yt-dlp --write-thumbnail --no-download %u -o thumb.temp && 
 
 # -= Theme =-
 
-color	listnormal	color249	default
-color	listfocus	default	color208
-color	listnormal_unread	color249	default	bold
-color	listfocus_unread	default	color208	bold
-color	info	default	color208
-color	background	default	default
-color	article	default	default
+# color	listnormal	color249	default
+# color	listfocus	default	color208
+# color	listnormal_unread	color249	default	bold
+# color	listfocus_unread	default	color208	bold
+# color	info	default	color208
+# color	background	default	default
+# color	article	default	default
+
+color	listnormal  	    color250	default
+color	listfocus   	    black       white
+color	listnormal_unread	color255	default     bold
+color	listfocus_unread	black       color255    bold
+color	info	            default 	default
+color	background      	default 	default
+color	article         	default 	default
 
 # -===================-

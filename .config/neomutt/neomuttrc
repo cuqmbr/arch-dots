@@ -1,0 +1,10 @@
+# Vim keybindings
+source "./vim-keys"
+# Macroses
+source "./macros"
+# General settings
+source "./general"
+
+
+# Set default account
+source "./accounts/me@cuqmbr.xyz"

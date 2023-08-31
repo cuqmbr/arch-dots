@@ -1,0 +1,155 @@
+# --==== me@cuqmbr.xyz ====--
+
+IMAPAccount me@cuqmbr.xyz
+Host mail.cuqmbr.xyz
+User me
+PassCmd "pass EMail/me@cuqmbr.xyz"
+SSLType IMAPS
+CertificateFile /etc/ssl/certs/ca-certificates.crt
+
+IMAPStore me@cuqmbr.xyz-remote
+Account me@cuqmbr.xyz
+
+MaildirStore me@cuqmbr.xyz-local
+SubFolders Verbatim
+# The trailing "/" is important
+Path ~/.mail/me@cuqmbr.xyz/
+Inbox ~/.mail/me@cuqmbr.xyz/Inbox
+
+Channel me@cuqmbr.xyz
+Far :me@cuqmbr.xyz-remote:
+Near :me@cuqmbr.xyz-local:
+Patterns *
+Create Both
+Expunge Both
+SyncState *
+
+# --==== business@cuqmbr.xyz ====--
+
+IMAPAccount business@cuqmbr.xyz
+Host mail.cuqmbr.xyz
+User business
+PassCmd "pass EMail/business@cuqmbr.xyz"
+SSLType IMAPS
+CertificateFile /etc/ssl/certs/ca-certificates.crt
+
+IMAPStore business@cuqmbr.xyz-remote
+Account business@cuqmbr.xyz
+
+MaildirStore business@cuqmbr.xyz-local
+SubFolders Verbatim
+# The trailing "/" is important
+Path ~/.mail/business@cuqmbr.xyz/
+Inbox ~/.mail/business@cuqmbr.xyz/Inbox
+
+Channel business@cuqmbr.xyz
+Far :business@cuqmbr.xyz-remote:
+Near :business@cuqmbr.xyz-local:
+Patterns *
+Create Both
+Expunge Both
+SyncState *
+
+# --==== services@cuqmbr.xyz ====--
+
+IMAPAccount services@cuqmbr.xyz
+Host mail.cuqmbr.xyz
+User services
+PassCmd "pass EMail/services@cuqmbr.xyz"
+SSLType IMAPS
+CertificateFile /etc/ssl/certs/ca-certificates.crt
+
+IMAPStore services@cuqmbr.xyz-remote
+Account services@cuqmbr.xyz
+
+MaildirStore services@cuqmbr.xyz-local
+SubFolders Verbatim
+# The trailing "/" is important
+Path ~/.mail/services@cuqmbr.xyz/
+Inbox ~/.mail/services@cuqmbr.xyz/Inbox
+
+Channel services@cuqmbr.xyz
+Far :services@cuqmbr.xyz-remote:
+Near :services@cuqmbr.xyz-local:
+Patterns *
+Create Both
+Expunge Both
+SyncState *
+
+# --==== notifications@cuqmbr.xyz ====--
+
+IMAPAccount notifications@cuqmbr.xyz
+Host mail.cuqmbr.xyz
+User notifications
+PassCmd "pass EMail/notifications@cuqmbr.xyz"
+SSLType IMAPS
+CertificateFile /etc/ssl/certs/ca-certificates.crt
+
+IMAPStore notifications@cuqmbr.xyz-remote
+Account notifications@cuqmbr.xyz
+
+MaildirStore notifications@cuqmbr.xyz-local
+SubFolders Verbatim
+# The trailing "/" is important
+Path ~/.mail/notifications@cuqmbr.xyz/
+Inbox ~/.mail/notifications@cuqmbr.xyz/Inbox
+
+Channel notifications@cuqmbr.xyz
+Far :notifications@cuqmbr.xyz-remote:
+Near :notifications@cuqmbr.xyz-local:
+Patterns *
+Create Both
+Expunge Both
+SyncState *
+
+# --==== dr.juniorf@gmail.com ====--
+
+IMAPAccount dr.juniorf@gmail.com
+Host imap.gmail.com
+User dr.juniorf@gmail.com
+PassCmd "pass Google-Accounts/Personal | grep -oP '(?<=Application_Password_Gmail: )[a-z]{16}'"
+SSLType IMAPS
+CertificateFile /etc/ssl/certs/ca-certificates.crt
+
+IMAPStore dr.juniorf@gmail.com-remote
+Account dr.juniorf@gmail.com
+
+MaildirStore dr.juniorf@gmail.com-local
+SubFolders Verbatim
+# The trailing "/" is important
+Path ~/.mail/dr.juniorf@gmail.com/
+Inbox ~/.mail/dr.juniorf@gmail.com/Inbox
+
+Channel dr.juniorf@gmail.com
+Far :dr.juniorf@gmail.com-remote:
+Near :dr.juniorf@gmail.com-local:
+Patterns *
+Create Both
+Expunge Both
+SyncState *
+
+# --==== danylo.nazarko@nure.ua ====--
+
+# IMAPAccount danylo.nazarko
+# Host smtp.gmail.com
+# User danylo.nazarko@gmail.com
+# PassCmd "pass Google-Accounts/KhNURE | grep -oP '(?<=Application_Password_Gmail: )[a-z]{16}'"
+# SSLType IMAPS
+# CertificateFile /etc/ssl/certs/ca-certificates.crt
+#
+# IMAPStore danylo.nazarko-remote
+# Account danylo.nazarko
+#
+# MaildirStore danylo.nazarko-local
+# SubFolders Verbatim
+# # The trailing "/" is important
+# Path ~/.mail/danylo.nazarko/
+# Inbox ~/.mail/danylo.nazarko/Inbox
+#
+# Channel danylo.nazarko
+# Far :danylo.nazarko-remote:
+# Near :danylo.nazarko-local:
+# Patterns *
+# Create Both
+# Expunge Both
+# SyncState *
