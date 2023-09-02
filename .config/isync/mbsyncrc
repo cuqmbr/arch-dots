@@ -130,25 +130,25 @@ SyncState *
 
 # --==== danylo.nazarko@nure.ua ====--
 
-# IMAPAccount danylo.nazarko
-# Host smtp.gmail.com
-# User danylo.nazarko@gmail.com
+# IMAPAccount danylo.nazarko@nure.ua
+# Host imap.gmail.com
+# User danylo.nazarko@nure.ua
 # PassCmd "pass Google-Accounts/KhNURE | grep -oP '(?<=Application_Password_Gmail: )[a-z]{16}'"
 # SSLType IMAPS
 # CertificateFile /etc/ssl/certs/ca-certificates.crt
 #
-# IMAPStore danylo.nazarko-remote
-# Account danylo.nazarko
+# IMAPStore danylo.nazarko@nure.ua-remote
+# Account danylo.nazarko@nure.ua
 #
-# MaildirStore danylo.nazarko-local
+# MaildirStore danylo.nazarko@nure.ua-local
 # SubFolders Verbatim
 # # The trailing "/" is important
-# Path ~/.mail/danylo.nazarko/
-# Inbox ~/.mail/danylo.nazarko/Inbox
+# Path ~/.mail/danylo.nazarko@nure.ua/
+# Inbox ~/.mail/danylo.nazarko@nure.ua/Inbox
 #
-# Channel danylo.nazarko
-# Far :danylo.nazarko-remote:
-# Near :danylo.nazarko-local:
+# Channel danylo.nazarko@nure.ua
+# Far :danylo.nazarko@nure.ua-remote:
+# Near :danylo.nazarko@nure.ua-local:
 # Patterns *
 # Create Both
 # Expunge Both

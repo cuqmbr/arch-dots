@@ -12,7 +12,7 @@
 
     "custom/wallpaper": {
         "format": "",
-        "on-click": "/home/${WAYBAR_USER}/.local/bin/shuffle-wallpaper.sh",
+        "on-click": "/home/${WAYBAR_USER}/.local/bin/shuffle-wallpaper",
         "tooltip": true,
         "tooltip-format": "Shuffle wallpaper"
     },
