@@ -2,15 +2,14 @@
 
 mail_directory="$HOME/.mail"
 inbox_path="Inbox/new"
-main_mailbox_name="me@cuqmbr.xyz"
 
-text=$(ls ${mail_directory}/${main_mailbox_name}/${inbox_path} | wc -l)
-
+total_new_count=0
 tooltip=""
 for mailbox_name in $(ls ${mail_directory}); do
     new_count=$(ls ${mail_directory}/${mailbox_name}/${inbox_path} | wc -l)
     tooltip="${tooltip}${mailbox_name}: ${new_count}\n"
+    total_new_count=$((${total_new_count} + ${new_count}))
 done
 tooltip=$(echo ${tooltip} | sed -e 's/\\n$//')
 
-echo "{\"text\": \"$text\", \"alt\": \"some alt text\", \"tooltip\": \"$tooltip\", \"class\": \"email\", \"percentage\": 100 }"
+echo "{\"text\": \"${total_new_count}\", \"alt\": \"some alt text\", \"tooltip\": \"${tooltip}\", \"class\": \"email\", \"percentage\": 100 }"

@@ -6,7 +6,7 @@
     "spacing": 0,
     //"mode": "dock",
 
-    "modules-left": ["custom/wallpaper", "wlr/workspaces", "mpris"],
+    "modules-left": ["custom/wallpaper", "hyprland/workspaces", "mpris"],
     "modules-center": [],
     "modules-right": ["network", "cpu", "memory", "disk", "battery", "pulseaudio", "hyprland/language", "custom/email", "clock"],
 
@@ -17,10 +17,13 @@
         "tooltip-format": "Shuffle wallpaper"
     },
 
-    "wlr/workspaces": {
+    "hyprland/workspaces": {
         "format": "{icon}",
         "all-outputs": false,
         "on-click": "activate",
+        "on-scroll-up": "hyprctl dispatch workspace e+1",
+        "on-scroll-down": "hyprctl dispatch workspace e-1",
+        "wrap-scroll": true,
         "format-icons": {
             "default": "",
             "active": ""
