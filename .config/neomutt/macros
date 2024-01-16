@@ -3,7 +3,7 @@ macro index,pager <f2> '<shell-escape>mbsync -V -c ~/.config/isync/mbsyncrc me@c
 macro index,pager <f3> '<shell-escape>mbsync -V -c ~/.config/isync/mbsyncrc services@cuqmbr.xyz<enter><enter-command>set folder="~/.mail/services@cuqmbr.xyz" ; source ~/.config/neomutt/accounts/services@cuqmbr.xyz<enter><change-folder> =Inbox<enter>'
 macro index,pager <f4> '<shell-escape>mbsync -V -c ~/.config/isync/mbsyncrc business@cuqmbr.xyz<enter><enter-command>set folder="~/.mail/business@cuqmbr.xyz" ; source ~/.config/neomutt/accounts/business@cuqmbr.xyz<enter><change-folder> =Inbox<enter>'
 macro index,pager <f5> '<shell-escape>mbsync -V -c ~/.config/isync/mbsyncrc notifications@cuqmbr.xyz<enter><enter-command>set folder="~/.mail/notifications@cuqmbr.xyz" ; source ~/.config/neomutt/accounts/notifications@cuqmbr.xyz<enter><change-folder> =Inbox<enter>'
-macro index,pager <f6> '<shell-escape>mbsync -V -c ~/.config/isync/mbsyncrc dr.juniorf@gmail.com<enter><enter-command>set folder="~/.mail/dr.juniorf@gmail.com" ; source ~/.config/neomutt/accounts/dr.juniorf@gmail.com<enter><change-folder> =Inbox<enter>'
+# macro index,pager <f6> '<shell-escape>mbsync -V -c ~/.config/isync/mbsyncrc dr.juniorf@gmail.com<enter><enter-command>set folder="~/.mail/dr.juniorf@gmail.com" ; source ~/.config/neomutt/accounts/dr.juniorf@gmail.com<enter><change-folder> =Inbox<enter>'
 
 macro index c '<change-folder>?<change-dir><home>^K=<enter>'
 macro index \CR "<toggle-new>"

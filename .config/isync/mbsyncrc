@@ -104,29 +104,31 @@ SyncState *
 
 # --==== dr.juniorf@gmail.com ====--
 
-IMAPAccount dr.juniorf@gmail.com
-Host imap.gmail.com
-User dr.juniorf@gmail.com
-PassCmd "pass Google-Accounts/Personal | grep -oP '(?<=Application_Password_Gmail: )[a-z]{16}'"
-SSLType IMAPS
-CertificateFile /etc/ssl/certs/ca-certificates.crt
+# This account is now deleted
 
-IMAPStore dr.juniorf@gmail.com-remote
-Account dr.juniorf@gmail.com
-
-MaildirStore dr.juniorf@gmail.com-local
-SubFolders Verbatim
-# The trailing "/" is important
-Path ~/.mail/dr.juniorf@gmail.com/
-Inbox ~/.mail/dr.juniorf@gmail.com/Inbox
-
-Channel dr.juniorf@gmail.com
-Far :dr.juniorf@gmail.com-remote:
-Near :dr.juniorf@gmail.com-local:
-Patterns *
-Create Both
-Expunge Both
-SyncState *
+# IMAPAccount dr.juniorf@gmail.com
+# Host imap.gmail.com
+# User dr.juniorf@gmail.com
+# PassCmd "pass Google-Accounts/Personal | grep -oP '(?<=Application_Password_Gmail: )[a-z]{16}'"
+# SSLType IMAPS
+# CertificateFile /etc/ssl/certs/ca-certificates.crt
+#
+# IMAPStore dr.juniorf@gmail.com-remote
+# Account dr.juniorf@gmail.com
+#
+# MaildirStore dr.juniorf@gmail.com-local
+# SubFolders Verbatim
+# # The trailing "/" is important
+# Path ~/.mail/dr.juniorf@gmail.com/
+# Inbox ~/.mail/dr.juniorf@gmail.com/Inbox
+#
+# Channel dr.juniorf@gmail.com
+# Far :dr.juniorf@gmail.com-remote:
+# Near :dr.juniorf@gmail.com-local:
+# Patterns *
+# Create Both
+# Expunge Both
+# SyncState *
 
 # --==== danylo.nazarko@nure.ua ====--
 
