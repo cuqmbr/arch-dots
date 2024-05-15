@@ -37,7 +37,7 @@
 # Unless your key does not have encryption capability, uncomment this
 # line and replace the keyid with your own.
 #
-set pgp_default_key="777FF17158F10DD2BC315DA4D492F7656EE96211"
+set pgp_default_key="FF8B1DD4EA6FF627144A454CE6B22F451C327A98"
 
 # If you have a separate signing key, or your key _only_ has signing
 # capability, uncomment this line and replace the keyid with your

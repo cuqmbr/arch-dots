@@ -4,7 +4,7 @@ set my_address="$my_username@$my_hostname"
 
 ## Receive options
 set mbox_type=Maildir
-set folder="~/.mail/$my_address"
+set folder="${XDG_DATA_HOME}/mail/$my_address"
 mailboxes +Inbox +Sent +Drafts +Spam +Trash
 set mbox="+Inbox"
 set record="+Sent"
