@@ -1,6 +1,6 @@
 #!/bin/bash
 
-mail_directory="$HOME/.mail"
+mail_directory="${XDG_DATA_HOME}/mail"
 inbox_path="Inbox/new"
 
 total_new_count=0

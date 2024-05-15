@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env sh
 
-qrencode -o /tmp/qr.jpg "$(wl-paste)"; sxiv -fbs f /tmp/qr.jpg &
+qrencode -o /tmp/qr.jpg "$(wl-paste)"; nsxiv -fbs f /tmp/qr.jpg &
 sleep 1; ydotool key 30:1 30:0

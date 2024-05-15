@@ -1,21 +1,76 @@
-#!/bin/bash
+#!/bin/sh
+
+SNAPSHOT_SAVE_DIRECTORY='/.snapshots'
+
+
+
+update() {
+
+    snapshot_name=$(date -I)
+
+    btrfs subvolume snapshot -r / ${SNAPSHOT_SAVE_DIRECTORY}/${snapshot_name}
+
+    su --shell /bin/sh --command 'paru -Syu --noconfirm --noprogressbar' system-updater
+
+    if [[ ! $? -eq 0 ]]; then
+        printf 'Update failed. Canceling snapshot rotation\n'
+        # btrfs subvolume delete ${SNAPSHOT_SAVE_DIRECTORY}/${snapshot_name}
+        exit 1
+    fi
+
+}
+
+
+
+# Input: file or folder name recognized by 'date -d'
+get_file_age_days() {
+
+    current_date_epoch=$(date +%s)
+    file_date_epoch=$(date -d $1 +%s)
+
+    file_age_days=$(( (current_date_epoch - file_date_epoch) / SECONDS_IN_DAY ))
+
+    printf ${file_age_days}
+
+}
+
+cleanup_snapshots() {
+
+    SECONDS_IN_DAY=$((24 * 60 * 60))
+    MAX_AGE_DAYS=14
+
+    for snapshot in $(ls -dc1 ${SNAPSHOT_SAVE_DIRECTORY}/* | sort -r); do
+        age_days=$(get_file_age_days $(basename ${snapshot}))
+
+        if [ ${age_days} -lt ${MAX_AGE_DAYS} ]; then
+            printf "Skipping '${snapshot}'. Age in days is ${age_days}\n"
+        else
+            btrfs subvolume delete ${snapshot}
+        fi
+    done
+
+}
+
+
 
 if [[ $EUID -ne 0 ]]; then
-    echo 'You must run the script with root privileges'
-    exit 2
-fi
-
-snapshot_name=$(date -I)
-snapshot_save_directory='/.snapshots/root'
-
-btrfs subvolume snapshot -r / ${snapshot_save_directory}/${snapshot_name}
-
-su -s /bin/bash -c 'paru -Syu --noconfirm --noprogressbar' updater
-
-if [[ ! $? -eq 0 ]]; then
-    echo 'Update failed. Canceling snapshot rotation'
-    # btrfs subvolume delete ${snapshot_save_directory}/${snapshot_name}
+    printf 'You must run the script with root privileges\n'
     exit 1
 fi
 
-cleanup-snapshots
+case ${1} in
+    '--update') 
+        update
+        cleanup_snapshots
+    ;;
+    '--cleanup')
+        cleanup_snapshots
+    ;;
+    *)
+        printf 'Usage: system-update options\n'
+        printf '\n'
+        printf 'Options:\n'
+        printf '    --update        Create btrfs snapshot of root subvolume, update system using paru, cleanup snapshots\n'
+        printf '    --cleanup       Cleanup snapshots\n\n'
+    ;;
+esac

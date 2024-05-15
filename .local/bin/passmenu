@@ -1,42 +1,53 @@
-#!/usr/bin/env bash
+#!/bin/sh
 
 shopt -s nullglob globstar
 
+# Set provided menu script or default to dmenu
+
+menu=$1
+if [[ ! -n $1 ]]; then
+	menu='dmenu'
+fi
+
+# Should the password be typed using ydotool (typeit=1) or copied to clipboard (typeit=0)
+
 typeit=0
-if [[ $1 == "--type" ]]; then
+if [[ $2 == "--type" ]]; then
 	typeit=1
 fi
 
+# Should the 'otp' or 'show' command be used
+
 mode='show'
-if [[ $2 == "--otp" ]]; then
+if [[ $3 == "--otp" ]]; then
 	mode='otp'
 fi
 
-echo "typeit = $typeit"
-echo "mode = $mode"
+# Set provided keyboard emulation script or default to ydotool
 
-if [[ -n $WAYLAND_DISPLAY ]]; then
-	dmenu="wofi --show dmenu --width 30%"
-	xdotool="ydotool type --file -"
-elif [[ -n $DISPLAY ]]; then
-	dmenu=dmenu
-	xdotool="xdotool type --clearmodifiers --file -"
-else
+dotool=$4
+if [[ ! -n $4 ]]; then
+	dotool="ydotool type --key-delay 1 --file -"
+fi
+
+
+if [[ ! -n $WAYLAND_DISPLAY ]] && [[ ! -n $DISPLAY ]]; then
 	echo "Error: No Wayland or X11 display detected" >&2
 	exit 1
 fi
+
 
 prefix=${PASSWORD_STORE_DIR-~/.password-store}
 password_files=( "$prefix"/**/*.gpg )
 password_files=( "${password_files[@]#"$prefix"/}" )
 password_files=( "${password_files[@]%.gpg}" )
 
-password=$(printf '%s\n' "${password_files[@]}" | $dmenu "$@")
+password=$(printf '%s\n' "${password_files[@]}" | $menu "$@")
 
 [[ -n $password ]] || exit
 
 if [[ $typeit -eq 0 ]]; then
-    pass ${mode} -c "$password" 2>/dev/null
+    pass ${mode} -c "$password"
 else
-    pass ${mode} "$password" | { IFS= read -r pass; printf %s "$pass"; } | $xdotool
+    pass ${mode} "$password" | { IFS= read -r pass; printf %s "$pass"; } | $dotool
 fi
