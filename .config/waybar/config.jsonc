@@ -1,155 +1,128 @@
 {
     "layer": "top",
     "position": "bottom",
-    "height": 48,
+    "height": 24,
     "margin": "0 10 10 10",
     "spacing": 0,
     //"mode": "dock",
 
-    "modules-left": ["custom/wallpaper", "hyprland/workspaces", "mpris"],
-    "modules-center": [],
-    "modules-right": ["network", "cpu", "memory", "disk", "battery", "pulseaudio", "hyprland/language", "custom/email", "clock"],
+    "modules-left": ["custom/logo", "hyprland/workspaces", "mpris"],
+    "modules-center": ["clock"],
+    "modules-right": ["network", "cpu", "memory", "pulseaudio", "custom/email", "battery", "hyprland/language"],
 
-    "custom/wallpaper": {
-        "format": "",
-        "on-click": "/home/${WAYBAR_USER}/.local/bin/shuffle-wallpaper",
-        "tooltip": true,
-        "tooltip-format": "Shuffle wallpaper"
+    "custom/logo": {
+        "format": "",
+        "tooltip": false
     },
 
     "hyprland/workspaces": {
         "format": "{icon}",
-        "all-outputs": false,
-        "on-click": "activate",
-        "on-scroll-up": "hyprctl dispatch workspace e+1",
-        "on-scroll-down": "hyprctl dispatch workspace e-1",
-        "wrap-scroll": true,
+        "persistent-workspaces": {
+            "1": [],
+            "2": [],
+            "3": []
+        },
         "format-icons": {
-            "default": "",
-            "active": ""
+            "default": "",
+            "active": ""
         }
     },
 
     "mpris": {
         "interval": 1,
-        "format": "{player_icon} {dynamic}",
-        "format-paused": "{status_icon} {dynamic}",
+        "format": "{player_icon} {title}",
+        "format-paused": "{status_icon} {title}",
         "player-icons": {
-            "default": "",
-            "mpv": ""
+            "default": ""
         },
         "status-icons": {
-            "paused": ""
+            "paused": ""
         },
-        "max-length": 50
-    // "ignored-players": ["firefox"],
+        "max-length": 50,/*,
+        "ignored-players": ["librewolf"]*/
+        "tooltip": true,
+        "tooltip-format": "{title} - {artist}"
     },
 
     "network": {
-        "interval": 2,
-        "format-ethernet": " {bandwidthTotalBytes}",
-        "format-wifi": " {essid} {bandwidthTotalBytes}",
-        "format-disconnected": " no network",
+        "interval": 5,
+        "format-ethernet": "󰈀 {bandwidthTotalBytes}",
+        "format-wifi": "  {bandwidthTotalBytes}",
+        "format-disconnected": "󰇨 ",
         "tooltip": true,
-        "tooltip-format-ethernet": "interface: {ifname}\nip: {ipaddr}",
-        "tooltip-format-wifi": "interface: {ifname}\nip: {ipaddr}\nsignal: {signalStrength}\nfrequency: {frequency}",
-        "on-click": "hyprctl keyword exec 'kitty nmtui'",
-        "min-length": 12
+        "tooltip-format-ethernet": "interface: {ifname}\nip/cidr: {ipaddr}/{cidr}",
+        "tooltip-format-wifi": "interface: {ifname}\nip/cidr: {ipaddr}/{cidr}\nap name: {essid}\nsignal: {signalStrength}dbm\nfrequency: {frequency}mhz"
     },
 
     "pulseaudio": {
         "format": "{icon} {volume}% {format_source}",
-        "format-muted": " {volume}% {format_source}",
+        "format-muted": "󰝟 {volume}% {format_source}",
         "format-source": "",
         "format-source-muted": "",
         "format-icons": {
-            "headphone": "",
-            "hands-free": "",
-            "headset": "",
-            "phone": "",
-            "portable": "",
-            "car": "",
-            "default": ["", ""]
+            "headphone": "󰋋",
+            "default": ["󰕿", "󰖀", "󰕾"]
         },
-        "scroll-step": 5,
         "tooltip": false,
-        "max-volume": 150,
-        "on-click": "pactl set-sink-mute $(pactl info | grep 'Default Sink' | cut -d ' ' -f 3) toggle",
-        "on-click-right": "pactl set-source-mute $(pactl get-default-source) toggle",
-        "min-length": 10
+        "scroll-step": 5,
+        "on-click": "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle",
+        "on-click-right": "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"
     },
 
     "cpu": {
         "interval": 5,
-        "format": " {usage}%",
-        "on-click": "hyprctl keyword exec 'kitty htop'",
-        "tooltip": true,
-        "min-length": 5
+        "format": " {usage}%",
+        "on-click": "$TERM -e top",
+        "tooltip": true
     },
 
     "memory": {
         "interval": 5,
-        "format": " {percentage}%",
-        "on-click": "hyprctl keyword exec 'kitty htop'",
+        "format": "  {percentage}%",
+        "on-click": "$TERM -e watch free -h",
         "tooltip": true,
-        "tooltip-format": "{used}GiB used out of {total}GiB",
-        "min-length": 5
-    },
-
-    "disk": {
-        "interval": 30,
-        "format": " {percentage_used}%",
-        "path": "/home/${WAYBAR_USER}",
-        "tooltip": true,
-        "tooltip-format": "{used} used out of {total} on {path} ({percentage_used}%)",
-        "on-click": "hyprctl keyword exec 'kitty ncdu -x /home/${WAYBAR_USER}'",
-        "min-length": 5
-    },
-
-    "temperature": {
-        "interval": 2,
-        "format": "{icon} {temperatureC}°C",
-        "format-icons": ["", "", "", "", ""],
-        "tooltip": false,
-        "min-length": 5
+        "tooltip-format": "{used}GiB used out of {total}GiB"
     },
 
     "battery": {
         "bat": "BAT0",
-        "interval": 5,
-        "full-at": 96,
+        "interval": 60,
+        "full-at": 100,
         "format": "{icon} {capacity}%",
-        "format-not charching": "",
-        "format-full": "",
-        "format-icons": ["", "", "", "", ""],
-        "tooltip": true,
-        "tooltip-format": "{timeTo}",
-        "min-length": 5
+        "format-not-charging": "",
+        "format-full": "󰁹",
+        "format-icons": ["󰁺", "󰁼", "󰁾", "󰂀", "󰁹"],
+        "tooltip": false
     },
 
     "hyprland/language": {
-        "format-en": " EN",
-        "format-ru": " RU",
-        "format-uk": " UA",
+        "format-en": "󰌌 EN",
+        "format-ru": "󰌌 RU",
+        "format-uk": "󰌌 UA",
         "keyboard-name": "keychron-k8-keychron-k8",
-        "on-click": "hyprctl switchxkblayout keychron-k8-keychron-k8 next",
-        "min-length": 5
+        "on-click": "hyprctl switchxkblayout keychron-k8-keychron-k8 next"
     },
 
     "custom/email": {
-        "interval": 15,
+        "interval": 60,
         "exec": "/home/${WAYBAR_USER}/.local/bin/new-mail",
         "return-type": "json",
-        "format": " {}",
-        "tooltip": true,
-        "on-click": "hyprctl keyword exec 'kitty neomutt'",
-        "min-length": 6
+        "format": " {}",
+        "on-click": "$TERM -e neomutt",
+        "tooltip": true
+    },
+
+    "custom/xmr": {
+        "interval": 3600,
+        "exec": "/home/${WAYBAR_USER}/.local/bin/get-profit-xmr",
+        "return-type": "json",
+        "format": "󱉡 {}",
+        "tooltip": true
     },
 
     "clock": {
         "interval": 5,
-        "format": " {:%H:%M}",
-        "format-alt": "{:%a(%u) %d %b(%m) %Y}",
+        "format": "{:%a %d %b - %H:%M}",
         "tooltip-format": "<tt><small>{calendar}</small></tt>",
         "calendar": {
             "mode": "month",
@@ -171,7 +144,6 @@
             "on-click-backward": "tz_down",
             "on-scroll-up": "shift_up",
             "on-scroll-down": "shift_down"
-        },
-        "min-length": 4
+        }
     }
 }
