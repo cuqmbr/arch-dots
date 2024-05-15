@@ -1,3 +1,11 @@
 show=drun
+matching=contains
+exec_search=false
+
+key_up=K
+key_down=J
+
+prompt=Program Name
 width=20%
 lines=10
+hide_scroll=true
