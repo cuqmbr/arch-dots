@@ -1,15 +1,21 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
-mail_directory="${XDG_DATA_HOME}/mail"
-inbox_path="Inbox/new"
+declare -r PATH_TO_MAIL_STORAGE="${XDG_DATA_HOME}/mail"
+declare -r RELATIVE_PATH_TO_NEW_LETTERS="Inbox/new"
 
-total_new_count=0
+total_new_letters_count=0
 tooltip=""
-for mailbox_name in $(ls ${mail_directory}); do
-    new_count=$(ls ${mail_directory}/${mailbox_name}/${inbox_path} | wc -l)
-    tooltip="${tooltip}${mailbox_name}: ${new_count}\n"
-    total_new_count=$((${total_new_count} + ${new_count}))
-done
-tooltip=$(echo ${tooltip} | sed -e 's/\\n$//')
 
-echo "{\"text\": \"${total_new_count}\", \"alt\": \"some alt text\", \"tooltip\": \"${tooltip}\", \"class\": \"email\", \"percentage\": 100 }"
+paths_to_mailboxes=$(find "${PATH_TO_MAIL_STORAGE}"/ -mindepth 1 -prune -print | sort -r)
+
+for path_to_mailbox in $paths_to_mailboxes; do
+    mailbox_name=$(basename "${path_to_mailbox}")
+
+    new_letters_count=$(find "${path_to_mailbox}/${RELATIVE_PATH_TO_NEW_LETTERS}"/ -mindepth 1 -prune -print | wc -l)
+
+    tooltip="${tooltip}${mailbox_name}: ${new_letters_count}\n"
+    total_new_letters_count=$((total_new_letters_count + new_letters_count))
+done
+tooltip=$(echo "${tooltip}" | sed -e 's/\\n$//')
+
+echo -n "{ \"text\": \"${total_new_letters_count}\", \"alt\": \"alt\", \"tooltip\": \"${tooltip}\", \"class\": \"email\", \"percentage\": 100 }"
