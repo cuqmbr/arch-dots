@@ -1,0 +1,24 @@
+#!/bin/sh
+
+# Execution starting point
+# This file must run the process in the foreground
+
+# Redirect stderr to stdout
+# Set strict mode. See 'set --help' for more info
+exec 2>&1; set -e
+
+# Source variables from ./conf
+[ -r conf ] && . ./conf
+
+exec /path/to/executable $OPTS
+
+# Use instead of statement above if you need to use environment variables
+#exec chpst -e env /path/to/executable $OPTS
+
+# Use if you need service supervision but the programm doesnt execute much work (exit shortly after start)
+# This way the service will have 'running' status and you will be able to stop which will execute finish file
+# NOTE: argument is not supported with this method
+#exec chpst -b /path/to/executable pause
+
+# Same as above but with arguments support
+#exec sh -c "/path/to/executable arguments; pause"

@@ -1,0 +1,13 @@
+#!/bin/sh
+
+# Same as run in service directory except for the loggin
+# See 'man svlogd(1)' for more info
+
+exec 2>&1; set -e
+
+[ -r conf ] && . ./conf
+
+# If the directory doesn't exist create it with specified mod bits
+[ -d "$LOGDIR" ] || /usr/bin/install -dm 755 "$LOGDIR" 
+
+exec /usr/bin/svlogd $OPTS "$LOGDIR" 

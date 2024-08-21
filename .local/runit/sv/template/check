@@ -1,0 +1,5 @@
+#!/bin/sh
+
+# Logic to check if the service is running correctly
+# Executed when sv check is issued
+# Reposrts success when exit code is 0

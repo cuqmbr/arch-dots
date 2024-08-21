@@ -1,0 +1,1 @@
+OPTS="--non-interactive --log-file /dev/stdout --data-dir /var/lib/monero"

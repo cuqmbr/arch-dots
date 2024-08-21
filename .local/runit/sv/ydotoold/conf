@@ -1,0 +1,1 @@
+OPTS="--socket-perm=600 --socket-own=1000:1000 --socket-path=/run/user/1000/.ydotool_socket"

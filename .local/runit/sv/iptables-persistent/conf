@@ -1,0 +1,2 @@
+PATH_TO_RULES_V4=/etc/iptables/rules.v4
+PATH_TO_RULES_V6=/etc/iptables/rules.v6

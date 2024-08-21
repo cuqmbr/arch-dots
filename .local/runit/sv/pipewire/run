@@ -1,0 +1,6 @@
+#!/bin/sh
+exec 2>&1; set -e
+
+[ -r conf ] && . ./conf
+
+chpst -e env /usr/bin/pipewire

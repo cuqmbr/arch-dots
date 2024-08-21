@@ -1,0 +1,2 @@
+LOGDIR="/var/log/nftables-persistent"
+OPTS="-tt"

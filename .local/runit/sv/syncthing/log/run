@@ -1,0 +1,9 @@
+#!/bin/sh
+
+exec 2>&1; set -e
+
+[ -r conf ] && . ./conf
+
+[ -d "$LOGDIR" ] || /usr/bin/install -dm 755 "$LOGDIR" 
+
+exec /usr/bin/svlogd $OPTS "$LOGDIR" 

@@ -1,0 +1,7 @@
+#!/bin/sh
+
+exec 2>&1; set -e
+
+[ -r conf ] && . ./conf
+
+exec sh -c "/usr/bin/nft --file $PATH_TO_SAVE_FILE; pause"
