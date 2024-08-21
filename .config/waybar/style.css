@@ -77,18 +77,6 @@ tooltip label {
     color: #C2B394;
 }
 
-#custom-email {
-    margin: 0;
-    padding: 0 8px 0 12px;
-    color: #C2B394;
-}
-
-#custom-xmr {
-    margin: 0;
-    padding: 0 8px 0 8px;
-    color: #C2B394;
-}
-
 #network {
     margin: 0;
     padding: 0 8px 0 8px;
@@ -107,7 +95,13 @@ tooltip label {
     color: #C2B394;
 }
 
-#battery {
+#custom-email {
+    margin: 0;
+    padding: 0 8px 0 8px;
+    color: #C2B394;
+}
+
+#custom-xmr-profit {
     margin: 0;
     padding: 0 8px 0 8px;
     color: #C2B394;
@@ -119,8 +113,20 @@ tooltip label {
     color: #C2B394;
 }
 
+#battery {
+    margin: 0;
+    padding: 0 8px 0 12px;
+    color: #C2B394;
+}
+
 #language {
     margin: 0;
     padding: 0 16px 0 8px;
+    color: #C2B394;
+}
+
+#tray {
+    margin: 0;
+    padding: 0 16px 0 16px;
     color: #C2B394;
 }

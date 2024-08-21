@@ -2,10 +2,9 @@ show=drun
 matching=contains
 exec_search=false
 
-key_up=K
-key_down=J
+key_up=k
+key_down=j
 
-prompt=Program Name
-width=20%
+prompt=
 lines=10
 hide_scroll=true

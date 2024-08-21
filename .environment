@@ -5,33 +5,39 @@ export XDG_DATA_HOME="${HOME}/.local/share"
 export XDG_STATE_HOME="${HOME}/.local/state"
 export XDG_CACHE_HOME="${HOME}/.cache"
 
-export SHELL=bash
+export SHELL=/bin/bash
 export TERM=alacritty
 export EDITOR=nvim
 export SVDIR="${HOME}/.local/runit/runsvdir"
 #export MANPAGER='nvim +Man!'
 
+export LAUNCH_IN_TERM="alacritty --command"
+
 # Aliases to define user commands
 alias config="/usr/bin/git --git-dir=${HOME}/.config-git --work-tree=${HOME}"
 
 # Aliases/Environment Variables for programs that does not obey XDG Base Directory Specification
-alias mbsync="mbsync -c \"${XDG_CONFIG_HOME}/isync/mbsyncrc\""
-alias wget="wget --hsts-file=${XDG_DATA_HOME}/wget-hsts"
-export HISTFILE="${XDG_STATE_HOME}/bash/history"
-export FFMPEG_DATADIR="${XDG_CONFIG_HOME}/ffmpeg"
-export GNUPGHOME="${XDG_DATA_HOME}/gnupg"
+alias mbsync="mbsync -c \"$XDG_CONFIG_HOME/isync/mbsyncrc\""
+alias wget="wget --hsts-file=$XDG_DATA_HOME/wget-hsts"
+export HISTFILE="$XDG_STATE_HOME/bash/history"
+export FFMPEG_DATADIR="$XDG_CONFIG_HOME/ffmpeg"
+export GNUPGHOME="$XDG_DATA_HOME/gnupg"
 export SSH_AUTH_SOCK="$(gpgconf --list-dirs agent-ssh-socket)"
-export WINEPREFIX="${XDG_DATA_HOME}/wineprefixes/default"
-export PASSWORD_STORE_DIR="${XDG_DATA_HOME}/pass"
-export W3M_DIR="${XDG_DATA_HOME}/w3m"
-export DOTNET_CLI_HOME="${XDG_DATA_HOME}/dotnet"
-export OMNISHARPHOME="${XDG_CONFIG_HOME}/omnisharp"
-export CUDA_CACHE_PATH="${XDG_CACHE_HOME}/nv"
-export prefix="${XDG_DATA_HOME}/npm"
-export cache="${XDG_CACHE_HOME}/npm"
-#export init-module="${XDG_CONFIG_HOME}/npm/config/npm-init.js"
-export tmp="${XDG_RUNTIME_DIR}/npm"
-export PYENV_ROOT="${XDG_DATA_HOME}/pyenv"
+export WINEPREFIX="$XDG_DATA_HOME/wineprefixes/default"
+export PASSWORD_STORE_DIR="$XDG_DATA_HOME/pass"
+export W3M_DIR="$XDG_DATA_HOME/w3m"
+export DOTNET_CLI_HOME="$XDG_DATA_HOME/dotnet"
+export NUGET_PACKAGES="$XDG_CACHE_HOME"/NuGetPackages
+export OMNISHARPHOME="$XDG_CONFIG_HOME/omnisharp"
+export CUDA_CACHE_PATH="$XDG_CACHE_HOME/nv"
+export PYENV_ROOT="$XDG_DATA_HOME/pyenv"
+export PYTHONSTARTUP="$HOME"/python/pythonrc
+export ANDROID_USER_HOME="$XDG_DATA_HOME"/android
+alias adb='HOME="$XDG_DATA_HOME"/android adb'
+export ANDROID_HOME="$XDG_DATA_HOME"/android/sdk
+export GRADLE_USER_HOME="$XDG_DATA_HOME"/gradle
+alias xmr='monero-wallet-cli --log-file "${XDG_STATE_HOME}/monero-wallet-cli" --daemon-address 10.1.0.127:18081 --trusted-daemon --wallet-file "${XDG_DATA_HOME}/monero/wallets/first.keys"'
+
 
 command -v pyenv >/dev/null || export PATH="${PYENV_ROOT}/bin:${PATH}"
 eval "$(pyenv init -)"

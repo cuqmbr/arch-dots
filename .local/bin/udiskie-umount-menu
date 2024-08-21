@@ -1,1 +1,0 @@
-udiskie-info --all --output '{device_file}:{ui_id_label}:{is_mounted}' | grep True | cut -d ':' -f 1,2 | wofi --prompt 'Umount drive' --dmenu | cut -d ':' -f 1 | xargs udiskie-umount

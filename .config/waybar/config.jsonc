@@ -1,14 +1,14 @@
 {
     "layer": "top",
     "position": "bottom",
-    "height": 24,
+    "height": 32,
     "margin": "0 10 10 10",
     "spacing": 0,
     //"mode": "dock",
 
     "modules-left": ["custom/logo", "hyprland/workspaces", "mpris"],
-    "modules-center": ["clock"],
-    "modules-right": ["network", "cpu", "memory", "pulseaudio", "custom/email", "battery", "hyprland/language"],
+    "modules-center": ["clock"/*, "tray"*/],
+    "modules-right": ["network", "cpu", "memory", "custom/email", "custom/xmr-profit", "pulseaudio", "battery", "hyprland/language"],
 
     "custom/logo": {
         "format": "",
@@ -105,19 +105,20 @@
 
     "custom/email": {
         "interval": 60,
-        "exec": "/home/${WAYBAR_USER}/.local/bin/new-mail",
+        "exec": "/home/${WAYBAR_USER}/.local/bin/new-mail 2>/dev/null",
         "return-type": "json",
         "format": " {}",
         "on-click": "$TERM -e neomutt",
         "tooltip": true
     },
 
-    "custom/xmr": {
+    "custom/xmr-profit": {
         "interval": 3600,
         "exec": "/home/${WAYBAR_USER}/.local/bin/get-profit-xmr",
         "return-type": "json",
         "format": "󱉡 {}",
-        "tooltip": true
+        "tooltip": true,
+        "on-click": "xdg-open https://www.coingecko.com/en/coins/monero/uah"
     },
 
     "clock": {
@@ -145,5 +146,10 @@
             "on-scroll-up": "shift_up",
             "on-scroll-down": "shift_down"
         }
+    },
+
+    "tray": {
+        "icon-size": 16,
+        "spacing": 8
     }
 }
