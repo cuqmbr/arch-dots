@@ -1,64 +1,66 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
-SNAPSHOT_SAVE_DIRECTORY='/.snapshots'
+set -Eeo pipefail
+trap 's=$?; echo >&2 "$0: Error on line "$LINENO": $BASH_COMMAND"; exit $s' ERR
 
 
+declare -r PATH_TO_SNAPSHOT_DIRECTORY='/.snapshots'
+declare -r MAX_AGE_DAYS=14
+declare -r SECONDS_IN_DAY=$((24 * 60 * 60))
 
-update() {
+function update {
 
-    snapshot_name=$(date -I)
+    local snapshot_name
+    snapshot_name=$(date --iso-8601=seconds)
 
-    btrfs subvolume snapshot -r / ${SNAPSHOT_SAVE_DIRECTORY}/${snapshot_name}
+    local path_to_snapshot="${PATH_TO_SNAPSHOT_DIRECTORY}/${snapshot_name}"
+
+    btrfs subvolume snapshot -r / "${path_to_snapshot}"
 
     su --shell /bin/sh --command 'paru -Syu --noconfirm --noprogressbar' system-updater
-
-    if [[ ! $? -eq 0 ]]; then
-        printf 'Update failed. Canceling snapshot rotation\n'
-        # btrfs subvolume delete ${SNAPSHOT_SAVE_DIRECTORY}/${snapshot_name}
-        exit 1
-    fi
-
 }
 
+function cleanup_snapshots {
+
+    function get_file_age_days {
+
+        local file_name=$1
+
+        local current_date_epoch
+        current_date_epoch=$(date +%s)
+
+        local file_creation_date_epoch
+        file_creation_date_epoch=$(date --date="${file_name}" +%s)
 
 
-# Input: file or folder name recognized by 'date -d'
-get_file_age_days() {
+        local file_age_days=$(( (current_date_epoch - file_creation_date_epoch) / SECONDS_IN_DAY ))
 
-    current_date_epoch=$(date +%s)
-    file_date_epoch=$(date -d $1 +%s)
+        printf '%u' "${file_age_days}"
+    }
 
-    file_age_days=$(( (current_date_epoch - file_date_epoch) / SECONDS_IN_DAY ))
 
-    printf ${file_age_days}
+    for path_to_snapshot in $(find ${PATH_TO_SNAPSHOT_DIRECTORY}/* -prune -print | sort -r); do
 
-}
+        local snapshot_name
+        snapshot_name=$(basename "${path_to_snapshot}")
 
-cleanup_snapshots() {
+        local age_days
+        age_days=$(get_file_age_days "${snapshot_name}")
 
-    SECONDS_IN_DAY=$((24 * 60 * 60))
-    MAX_AGE_DAYS=14
-
-    for snapshot in $(ls -dc1 ${SNAPSHOT_SAVE_DIRECTORY}/* | sort -r); do
-        age_days=$(get_file_age_days $(basename ${snapshot}))
-
-        if [ ${age_days} -lt ${MAX_AGE_DAYS} ]; then
-            printf "Skipping '${snapshot}'. Age in days is ${age_days}\n"
+        if [ "${age_days}" -lt ${MAX_AGE_DAYS} ]; then
+            printf "Skipping '%s'. Age in days is %u\n" "${path_to_snapshot}" "${age_days}"
         else
-            btrfs subvolume delete ${snapshot}
+            btrfs subvolume delete "${path_to_snapshot}"
         fi
     done
-
 }
 
-
-
-if [[ $EUID -ne 0 ]]; then
+if [ "${EUID}" -ne 0 ]; then
     printf 'You must run the script with root privileges\n'
     exit 1
 fi
 
-case ${1} in
+case "${1}" in
     '--update') 
         update
         cleanup_snapshots
@@ -72,5 +74,6 @@ case ${1} in
         printf 'Options:\n'
         printf '    --update        Create btrfs snapshot of root subvolume, update system using paru, cleanup snapshots\n'
         printf '    --cleanup       Cleanup snapshots\n\n'
+        printf '\n'
     ;;
 esac
