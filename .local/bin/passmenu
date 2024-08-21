@@ -1,53 +1,48 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
-shopt -s nullglob globstar
+set -Eeuo pipefail
+trap 's=$?; echo >&2 "$0: Error on line "$LINENO": $BASH_COMMAND"; exit $s' ERR
 
-# Set provided menu script or default to dmenu
 
-menu=$1
-if [[ ! -n $1 ]]; then
-	menu='dmenu'
-fi
+function print_usage {
+    scriptname=$(basename "$0")
 
-# Should the password be typed using ydotool (typeit=1) or copied to clipboard (typeit=0)
+    printf '%s\n' "Usage: ${scriptname} <action> <menu> <dotool>"
+    printf '\n'
+    printf '%s\n' 'Arguments:'
+    printf '%s\n' "    action:        Can be 'show' or 'otp'. Will process password or otp accordingly."
+    printf '%s\n' '    menu:          Path to program executable with arguments that accepts stdin and displays a list of options to choose from. e.g.: dmenu, rofi, wofi, etc.'
+    printf '%s\n\n' '    dotool:        Path to program executable with arguments that accepts stdin and prints it. e.g.: xdotool, ydotool, etc.'
+}
 
-typeit=0
-if [[ $2 == "--type" ]]; then
-	typeit=1
-fi
 
-# Should the 'otp' or 'show' command be used
-
-mode='show'
-if [[ $3 == "--otp" ]]; then
-	mode='otp'
-fi
-
-# Set provided keyboard emulation script or default to ydotool
-
-dotool=$4
-if [[ ! -n $4 ]]; then
-	dotool="ydotool type --key-delay 1 --file -"
+if [ $# -eq 0 ] || [ "$1" == "-h" ] || [ "$1" == "--help" ] || [ "$1" == "-?" ]; then
+    print_usage
+    exit 0
 fi
 
 
-if [[ ! -n $WAYLAND_DISPLAY ]] && [[ ! -n $DISPLAY ]]; then
+action=$1
+menu=$2
+dotool=$3
+
+
+if [ -z "$WAYLAND_DISPLAY" ] && [ -z "$DISPLAY" ]; then
 	echo "Error: No Wayland or X11 display detected" >&2
 	exit 1
 fi
 
+
+shopt -s nullglob globstar
 
 prefix=${PASSWORD_STORE_DIR-~/.password-store}
 password_files=( "$prefix"/**/*.gpg )
 password_files=( "${password_files[@]#"$prefix"/}" )
 password_files=( "${password_files[@]%.gpg}" )
 
+
 password=$(printf '%s\n' "${password_files[@]}" | $menu "$@")
 
-[[ -n $password ]] || exit
+[ -n "$password" ] || exit
 
-if [[ $typeit -eq 0 ]]; then
-    pass ${mode} -c "$password"
-else
-    pass ${mode} "$password" | { IFS= read -r pass; printf %s "$pass"; } | $dotool
-fi
+pass "$action" "$password" | { IFS= read -r pass; printf %s "$pass"; } | $dotool
