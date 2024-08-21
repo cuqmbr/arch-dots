@@ -1,4 +1,10 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 
-qrencode -o /tmp/qr.jpg "$(wl-paste)"; nsxiv -fbs f /tmp/qr.jpg &
-sleep 1; ydotool key 30:1 30:0
+# LAUNCH_IN_TERM environment variable is a command that lauches your terminal
+# emulator of choise and executes given command inside it
+
+set -Eeuo pipefail
+trap 's=$?; echo >&2 "$0: Error on line "$LINENO": $BASH_COMMAND"; exit $s' ERR
+
+clipboard=$(wl-paste)
+$LAUNCH_IN_TERM sh -c "qrencode -t UTF8 '${clipboard}'; read"
