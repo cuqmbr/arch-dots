@@ -4,19 +4,25 @@
     "height": 32,
     "margin": "0 10 10 10",
     "spacing": 0,
-    //"mode": "dock",
+    // "mode": "dock",
 
-    "modules-left": ["custom/logo", "hyprland/workspaces", "mpris"],
-    "modules-center": ["clock"/*, "tray"*/],
-    "modules-right": ["network", "cpu", "memory", "custom/email", "custom/xmr-profit", "pulseaudio", "battery", "hyprland/language"],
+    "modules-left": ["custom/divider", "custom/logo", "custom/divider", "hyprland/workspaces", "mpris"],
+    "modules-center": ["clock"],
+    "modules-right": ["network", "cpu", "memory", "custom/email", "custom/xmr-profit", "pulseaudio", "battery", "hyprland/language", "tray", "custom/divider"],
 
-    "custom/logo": {
-        "format": "",
+    "custom/divider": {
+        "format": " ",
         "tooltip": false
     },
 
+    "custom/logo": {
+        "format": "",
+        "tooltip": false,
+        "on-click": "$LAUNCH_IN_TERM sh -c 'printf \"\n\n\"; fastfetch; printf \"\n\n\"; read'"
+    },
+
     "hyprland/workspaces": {
-        "format": "{icon}",
+        "format": "{name}"/*,
         "persistent-workspaces": {
             "1": [],
             "2": [],
@@ -25,7 +31,7 @@
         "format-icons": {
             "default": "",
             "active": ""
-        }
+        }*/
     },
 
     "mpris": {
@@ -38,8 +44,8 @@
         "status-icons": {
             "paused": ""
         },
-        "max-length": 50,/*,
-        "ignored-players": ["librewolf"]*/
+        "max-length": 50,
+        /*"ignored-players": ["librewolf"],*/
         "tooltip": true,
         "tooltip-format": "{title} - {artist}"
     },
@@ -51,7 +57,8 @@
         "format-disconnected": "󰇨 ",
         "tooltip": true,
         "tooltip-format-ethernet": "interface: {ifname}\nip/cidr: {ipaddr}/{cidr}",
-        "tooltip-format-wifi": "interface: {ifname}\nip/cidr: {ipaddr}/{cidr}\nap name: {essid}\nsignal: {signalStrength}dbm\nfrequency: {frequency}mhz"
+        "tooltip-format-wifi": "interface: {ifname}\nip/cidr: {ipaddr}/{cidr}\nap name: {essid}\nsignal: {signalStrength}dbm\nfrequency: {frequency}mhz",
+        "on-click": "$LAUNCH_IN_TERM connmanctl"
     },
 
     "pulseaudio": {
@@ -72,14 +79,14 @@
     "cpu": {
         "interval": 5,
         "format": " {usage}%",
-        "on-click": "$TERM -e top",
+        "on-click": "$LAUNCH_IN_TERM top",
         "tooltip": true
     },
 
     "memory": {
         "interval": 5,
         "format": "  {percentage}%",
-        "on-click": "$TERM -e watch free -h",
+        "on-click": "$LAUNCH_IN_TERM watch free -h",
         "tooltip": true,
         "tooltip-format": "{used}GiB used out of {total}GiB"
     },
@@ -108,7 +115,7 @@
         "exec": "/home/${WAYBAR_USER}/.local/bin/new-mail 2>/dev/null",
         "return-type": "json",
         "format": " {}",
-        "on-click": "$TERM -e neomutt",
+        "on-click": "$LAUNCH_IN_TERM neomutt",
         "tooltip": true
     },
 

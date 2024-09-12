@@ -8,17 +8,20 @@ http://www.rfc-editor.org/rfcrss.xml
 --------Blogs--------
 -
 https://lukesmith.xyz/index.xml
-https://habr.com/ru/rss/articles/?fl=ru
+https://www.dwarmstrong.org/feed.xml
 https://www.fsf.org/static/fsforg/rss/blogs.xml
+https://habr.com/ru/rss/articles/?fl=ru
 -
 ------Podcasts-------
 -
 https://notrelated.xyz/rss "Not Related by Luke Smith"
 -
+-------Videos--------
+-
+https://videos.lukesmith.xyz/feeds/videos.xml "Luke Smith PeerTube Instance"
+-
 -------YouTube-------
 -
-https://www.scriptbarrel.com/xml.cgi?channel_id=UCibzhKiiLkEiYCdmePKSOjg&name=Berserk
-https://www.scriptbarrel.com/xml.cgi?channel_id=UCfe_znKY1ukrqlGActlFmaQ&name=Healthy%20Software%20Developer
 https://www.scriptbarrel.com/xml.cgi?channel_id=UCfJRkBBiPtKZyZn_3PxWaiQ&name=Internet%20of%20Bugs
 https://www.scriptbarrel.com/xml.cgi?channel_id=UC2eYFnH61tmytImy1mTYvhA&name=Luke%20Smith
 https://www.scriptbarrel.com/xml.cgi?channel_id=UCGc7D1dcbCWHzh3SfDhSFhw&name=Undine%20Almani
@@ -27,13 +30,10 @@ https://www.scriptbarrel.com/xml.cgi?channel_id=UCl2mFZoRqjw_ELax4Yisf6w&name=Lo
 https://www.scriptbarrel.com/xml.cgi?channel_id=UCld68syR8Wi-GY_n4CaoJGA&name=Brodie%20Robertson
 https://www.scriptbarrel.com/xml.cgi?channel_id=UCVls1GmFKf6WlTraIb_IaJg&name=DistroTube
 https://www.scriptbarrel.com/xml.cgi?channel_id=UC_62FowZPxGB6ysv4mcj20A&name=402%20Payment%20Required
-https://www.scriptbarrel.com/xml.cgi?channel_id=UCxQKHvKbmSzGMvUrVtJYnUA&name=Learn%20Linux%20TV
 https://www.scriptbarrel.com/xml.cgi?channel_id=UCG5Ph9Mm6UEQLJJ-kGIC2AQ&name=OneMarcFifty
 https://www.scriptbarrel.com/xml.cgi?channel_id=UCR-DXc1voovS8nhAvccRZhg&name=Jeff%20Geerling
-https://www.scriptbarrel.com/xml.cgi?channel_id=UCsd6hP-zzIkCpw8XGw7Osyw&name=Geerling%20Engineering
 https://www.scriptbarrel.com/xml.cgi?channel_id=UCR1HSvPGgweMlKoHRkSkwjw&name=notebook-31
 https://www.scriptbarrel.com/xml.cgi?channel_id=UC6wnai488mwec_FUVfdl84w&name=Emerald%20Powder
-https://www.scriptbarrel.com/xml.cgi?channel_id=UCXuqSBlHAE6Xw-yeJA0Tunw&name=Linus%20Tech%20Tips
 https://www.scriptbarrel.com/xml.cgi?channel_id=UCdKuE7a2QZeHPhDntXVZ91w&name=Kuplinov%20Play
 https://www.scriptbarrel.com/xml.cgi?channel_id=UCO7fujFV_MuxTM0TuZrnE6Q&name=Felix%20Colgrave
 https://www.scriptbarrel.com/xml.cgi?channel_id=UCYO_jab_esuFRV4b17AJtAw&name=3Blue1Brown

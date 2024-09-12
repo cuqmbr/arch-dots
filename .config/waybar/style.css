@@ -2,6 +2,7 @@
     font-family: JetBrainsMono Nerd Font;
     font-size: 14px;
     font-style: normal;
+    border-radius: 0;
 }
 
 window#waybar {
@@ -11,7 +12,6 @@ window#waybar {
 tooltip {
     color: #C2B394;
     background: #1D2021;
-    border-radius: 0;
     border: 1px solid #783F44;
 }
 
@@ -20,10 +20,16 @@ tooltip label {
     font-size: 13px;
 }
 
+#custom-divider {
+    color: #C2B394;
+    margin: 0;
+    padding: 0;
+}
+
 #custom-logo {
     color: #4D4D4D;
     margin: 0;
-    padding: 0 8px 0 16px;
+    padding: 0 8px 0 8px;
 }
 
 #workspaces {
@@ -35,6 +41,8 @@ tooltip label {
 }
 
 #workspaces button {
+    margin: 0;
+    padding: 0 4px 2px 4px;
     color: #4D4D4D;
     background: transparent;
     transition: none;
@@ -47,6 +55,8 @@ tooltip label {
 
 #workspaces button.active {
     color: #AD685A;
+    padding: 0 4px 0 4px;
+    border-bottom: 2px solid #C2B394;
 }
 
 
@@ -121,12 +131,12 @@ tooltip label {
 
 #language {
     margin: 0;
-    padding: 0 16px 0 8px;
+    padding: 0 8px 0 8px;
     color: #C2B394;
 }
 
 #tray {
     margin: 0;
-    padding: 0 16px 0 16px;
+    padding: 0 8px 0 8px;
     color: #C2B394;
 }
