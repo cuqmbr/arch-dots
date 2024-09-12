@@ -1,6 +1,5 @@
 android-studio
 anydesk-bin
-drawio-desktop-bin
 efistub-standalone
 gtkglext
 hyprpicker
@@ -12,6 +11,7 @@ mongosh-bin
 otf-cm-unicode
 paru-bin
 prismlauncher-qt5-bin
+rar
 ttf-cm-unicode
 vrms-arch-git
 xdg-ninja
