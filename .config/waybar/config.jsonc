@@ -36,8 +36,8 @@
 
     "mpris": {
         "interval": 1,
-        "format": "{player_icon} {title}",
-        "format-paused": "{status_icon} {title}",
+        "format": "{player_icon}  {title}",
+        "format-paused": "{status_icon}  {title}",
         "player-icons": {
             "default": ""
         },
@@ -94,20 +94,21 @@
     "battery": {
         "bat": "BAT0",
         "interval": 60,
-        "full-at": 100,
+        "full-at": 96,
         "format": "{icon} {capacity}%",
-        "format-not-charging": "",
+        "format-charging": " {capacity}%",
         "format-full": "󰁹",
         "format-icons": ["󰁺", "󰁼", "󰁾", "󰂀", "󰁹"],
-        "tooltip": false
+        "tooltip": true,
+        "tooltip-format": "{timeTo}\nCycles: {cycles}\nPower draw: {power} W"
     },
 
     "hyprland/language": {
         "format-en": "󰌌 EN",
         "format-ru": "󰌌 RU",
-        "format-uk": "󰌌 UA",
+        "format-uk": "󰌌 UA"/*,
         "keyboard-name": "keychron-k8-keychron-k8",
-        "on-click": "hyprctl switchxkblayout keychron-k8-keychron-k8 next"
+        "on-click": "hyprctl switchxkblayout keychron-k8-keychron-k8 next"*/
     },
 
     "custom/email": {
