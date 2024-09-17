@@ -1,0 +1,33 @@
+#!/usr/bin/env bash
+
+set -Eeuo pipefail
+trap 's=$?; echo >&2 "$0: Error on line "$LINENO": $BASH_COMMAND"; exit $s' ERR
+
+
+function print_usage {
+    scriptname=$(basename "$0")
+
+    printf '%s\n' "Usage: ${scriptname} <emoji file> <menu> <clipboard>"
+    printf '\n'
+    printf '%s\n' 'Arguments:'
+    printf '%s\n' "    emoji file:  Path to file with a list of emojis. One line = one selectable entry. Line format: 'emoji searchable description of emoji', e.g.: '🥒 cucumber vagitabe'"
+    printf '%s\n' '    menu:        Path to program executable with arguments that accepts stdin and displays a list of options to choose from. e.g.: dmenu, rofi, wofi, etc.'
+    printf '%s\n\n' '    clipboard:   Path to program executable with arguments that accepts stdin and puts it in the clipboard.'
+}
+
+
+if [[ $# -eq 0 || $1 == "-h" || $1 == "--help" || $1 == "-?" ]]; then
+    print_usage
+    exit 1
+fi
+
+
+emoji_file=$1
+menu=$2
+clipboard=$3
+
+emoji=$($menu < "$emoji_file" | cut -z -d ' ' -f 1) 
+
+printf '%s' "$emoji" | $clipboard
+
+notify-send 'Emoji Menu' "Emoji '${emoji}' copied to clipboard."

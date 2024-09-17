@@ -1,0 +1,194 @@
+#!/bin/sh
+
+NOTIFICATION_HEADER='vpnctl'
+
+is_network_reachable() {
+
+    if ! ping -c 1 -W 1 cuqmbr.xyz > /dev/null 2>&1; then
+        return 1
+    fi
+
+    return 0
+}
+
+connect() {
+    
+    notification_summary='Connected to the VPN.'
+
+    connmanctl enable offline
+    connmanctl disable offline
+
+    if ! connmanctl connect vpn_46_226_165_165_family_vpn_aeza_cuqmbr_xyz; then
+        notification_summary='Failed to connect to the VPN.'
+    fi
+
+    sv restart doh-client
+
+
+    sleep 5
+
+
+    network_is_reachable='yes'
+
+    if ! is_network_reachable; then
+        network_is_reachable='no'
+    fi
+
+
+    notify-send "${NOTIFICATION_HEADER}" "${notification_summary}\nIs network reachable: ${network_is_reachable}."
+}
+
+disconnect() {
+
+    notification_summary='Disconnected from the VPN.'
+
+    connmanctl enable offline
+    connmanctl disable offline
+
+    if ! connmanctl disconnect vpn_46_226_165_165_family_vpn_aeza_cuqmbr_xyz; then
+        notification_summary='Failed to disconnect from the VPN.'
+    fi
+
+    sv restart doh-client
+
+
+    sleep 5
+
+
+    network_is_reachable='yes'
+
+    if ! is_network_reachable; then
+        network_is_reachable='no'
+    fi
+
+
+    notify-send "${NOTIFICATION_HEADER}" "${notification_summary}\nIs network reachable: ${network_is_reachable}."
+}
+
+
+scriptname=$(basename "$0")
+case "${1}" in
+
+    '--connect') 
+        connect
+    ;;
+    '--disconnect')
+        disconnect
+    ;;
+    *)
+        printf 'Usage: %s options\n' "${scriptname}"
+        printf '\n'
+        printf 'Options:\n'
+        printf '    --connect        \n'
+        printf '    --disconnect       \n'
+        printf '\n'
+    ;;
+esac
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# #!/bin/sh
+#
+# NOTIFICATION_HEADER='vpnctl'
+#
+# is_network_reachable() {
+#
+#     if ! ping -c 1 -W 1 cuqmbr.xyz > /dev/null 2>&1; then
+#         return 1
+#     fi
+#
+#     return 0
+# }
+#
+# connect() {
+#
+#     password=$(echo garbage | wofi --lines 0 --show dmenu --prompt='Enter your password to connet to the VPN' --password)
+#     
+#     if ! connmanctl enable offline; then
+#         notification_summary="${notification_summary}\nFailed to enable offline mode."
+#     elif ! connmanctl disable offline; then
+#         notification_summary="${notification_summary}\nFailed to disable offline mode."
+#     elif ! connmanctl connect vpn_46_226_165_165_family_vpn_aeza_cuqmbr_xyz; then
+#         notification_summary="${notification_summary}\nFailed to connect to the VPN."
+#     elif ! echo "${password}" | su - -c "sv restart doh-client"; then
+#         notification_summary="${notification_summary}\nFailed to restart doh-client."
+#     else
+#         notification_summary='Connected to the VPN.'
+#     fi
+#
+#
+#     # sleep 5
+#
+#
+#     network_is_reachable='yes'
+#
+#     if ! is_network_reachable; then
+#         network_is_reachable='no'
+#     fi
+#
+#
+#     notify-send "${NOTIFICATION_HEADER}" "${notification_summary}\nIs network reachable: ${network_is_reachable}."
+# }
+#
+# disconnect() {
+#
+#     password=$(echo garbage | wofi --lines 0 --show dmenu --prompt='Enter your password to disconnet from the VPN' --password)
+#
+#     if ! connmanctl enable offline; then
+#         notification_summary="${notification_summary}\nFailed to enable offline mode."
+#     elif ! connmanctl disable offline; then
+#         notification_summary="${notification_summary}\nFailed to disable offline mode."
+#     elif ! connmanctl disconnect vpn_46_226_165_165_family_vpn_aeza_cuqmbr_xyz; then
+#         notification_summary="${notification_summary}\nFailed to disconnect from the VPN."
+#     elif ! echo "${password}" | su - -c "sv restart doh-client"; then
+#         notification_summary="${notification_summary}\nFailed to restart doh-client."
+#     else
+#         notification_summary='Disconnected from the VPN.'
+#     fi
+#
+#     sv restart doh-client
+#
+#
+#     # sleep 5
+#
+#
+#     network_is_reachable='yes'
+#
+#     if ! is_network_reachable; then
+#         network_is_reachable='no'
+#     fi
+#
+#
+#     notify-send "${NOTIFICATION_HEADER}" "${notification_summary}\nIs network reachable: ${network_is_reachable}."
+# }
+#
+#
+# scriptname=$(basename "$0")
+# case "${1}" in
+#
+#     '--connect') 
+#         connect
+#     ;;
+#     '--disconnect')
+#         disconnect
+#     ;;
+#     *)
+#         printf 'Usage: %s options\n' "${scriptname}"
+#         printf '\n'
+#         printf 'Options:\n'
+#         printf '    --connect        \n'
+#         printf '    --disconnect       \n'
+#         printf '\n'
+#     ;;
+# esac
