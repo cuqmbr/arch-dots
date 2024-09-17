@@ -1,5 +1,7 @@
 android-studio
 anydesk-bin
+cava
+cmst
 efistub-standalone
 gtkglext
 hyprpicker

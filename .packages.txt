@@ -28,12 +28,16 @@ bluez
 bluez-runit
 bluez-utils
 btrfs-progs
+cava
 cliphist
+cmatrix
+cmst
 connman
 connman-runit
 cronie
 cronie-runit
 cryptsetup
+dbus-docs
 dino
 dns-over-https-runit
 dnsmasq-runit
@@ -58,6 +62,7 @@ fastfetch
 fio
 fontforge
 fuse-overlayfs
+fzf
 gimp
 git
 gnu-free-fonts
