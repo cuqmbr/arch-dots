@@ -1,5 +1,5 @@
 show=drun
-matching=contains
+matching=fuzzy
 exec_search=false
 
 key_up=k

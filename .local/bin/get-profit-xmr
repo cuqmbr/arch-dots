@@ -2,23 +2,47 @@
 
 # Get profit in UAH from investments in XMR
 
-get_json_data() {
-    local api_key="${1}"
-    local json=$(curl -s -H "X-CMC_PRO_API_KEY: ${api_key}" -H "Accept: application/json" -d "symbol=XMR&convert=UAH" -G https://pro-api.coinmarketcap.com/v2/cryptocurrency/quotes/latest)
-    printf '%s' "${json}"
+get_price_uah() {
+    api_key="${1}"
+
+    json=$(curl -s -H "X-CMC_PRO_API_KEY: ${api_key}" -H "Accept: application/json" -d "symbol=XMR&convert=UAH" -G https://pro-api.coinmarketcap.com/v2/cryptocurrency/quotes/latest)
+
+    price=$(printf '%s' "${json}" | jq -re '.data.XMR[0].quote.UAH.price')
+
+    if [ "${price}" != "null" ]; then
+        printf '%s' "${price}"
+    else
+        printf '0'
+    fi
 }
 
-get_profit() {
-    local current_price="${1}"
-    local profit=$(printf '%s\n' "(3.796264 + 1.274654 - 0.00500307) * ${current_price} - (6668.7404 * 1.274654 + 3.796264 * 5005.1215 + 0.04577439 * 6421)" | bc -l)
-    printf '%f' "${profit}"
+get_price_rub() {
+    api_key="${1}"
+
+    json=$(curl -s -H "X-CMC_PRO_API_KEY: ${api_key}" -H "Accept: application/json" -d "symbol=XMR&convert=RUB" -G https://pro-api.coinmarketcap.com/v2/cryptocurrency/quotes/latest)
+
+    price=$(printf '%s' "${json}" | jq -re '.data.XMR[0].quote.RUB.price')
+
+    if [ "${price}" != "null" ]; then
+        printf '%s' "${price}"
+    else
+        printf '0'
+    fi
 }
+
 
 api_key=$(gpg --decrypt /home/cuqmbr/api-key_pro.coinmarketcap.com.gpg)
-json=$(get_json_data "${api_key}")
 
-current_price=$([ -z "${json}" ] && printf 0 || printf '%s' "${json}" | jq '.data.XMR[0].quote.UAH.price')
-profit=$([ -z "${json}" ] && printf 0 || get_profit "${current_price}")
-last_updated=$([ -z "${json}" ] && printf "na" || printf '%s' "${json}" | jq '.data.XMR[0].last_updated' | xargs date '+%F %T' --date )
+spent_uah_formula='(6668.7404 * 1.274654 + 3.796264 * 5005.1215)'
+amount_xmr_formula='(3.796264 + 1.274654 + 0.06217499 - 0.00500307 - 0.04577439 - 0.05056792 - 0.03677322 - 0.04577439 - 0.07233713 - 0.11148993 - 0.00503076)'
 
-printf '{"text": "%.0f", "alt": "Profit in UAH from XMR", "tooltip": "Current price (UAH): %.0f\\nLast updated: %s", "class": "xmr", "percentage": 0 }' "${profit}" "${current_price}" "${last_updated}"
+amount_xmr=$(printf '%s\n' "${amount_xmr_formula}" | bc -l)
+
+current_price_uah=$(get_price_uah "${api_key}")
+amount_uah=$(printf '%s * %s\n' "${amount_xmr_formula}" "${current_price_uah}" | bc -l)
+profit_uah=$(printf '%s * %s - %s\n' "${amount_xmr_formula}" "${current_price_uah}" "${spent_uah_formula}" | bc -l)
+
+current_price_rub=$(get_price_rub "${api_key}")
+amount_rub=$(printf '%s * %s\n' "${amount_xmr_formula}" "${current_price_rub}" | bc -l)
+
+printf '{"text": "%.0f", "alt": "Profit in UAH from XMR", "tooltip": "Amount (XMR): %.5f\\n\\nCurrent price (RUB): %.0f\\nAmount (RUB): %.0f\\n\\nCurrent price (UAH): %.0f\\nAmount (UAH): %.0f", "class": "xmr", "percentage": 0 }' "${profit_uah}" "${amount_xmr}" "${current_price_rub}" "${amount_rub}" "${current_price_uah}" "${amount_uah}"

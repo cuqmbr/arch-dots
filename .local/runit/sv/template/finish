@@ -1,0 +1,10 @@
+#!/bin/sh
+
+# Execution finish point
+# Executes on service shutdown
+
+exec 2>&1; set -e
+
+[ -r conf ] && . ./conf
+
+exec /path/to/executable $OPTS

@@ -1,7 +1,9 @@
 [user]
-	name = cuqmbr
-	email = me@cuqmbr.xyz
+name = cuqmbr
+email = me@cuqmbr.xyz
+
 [init]
-	defaultBranch = main
+defaultBranch = main
+
 [commit]
-	gpgsign = true
+gpgsign = true

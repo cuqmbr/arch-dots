@@ -7,8 +7,8 @@
     // "mode": "dock",
 
     "modules-left": ["custom/divider", "custom/logo", "custom/divider", "hyprland/workspaces", "mpris"],
-    "modules-center": ["clock"],
-    "modules-right": ["network", "cpu", "memory", "custom/email", "custom/xmr-profit", "pulseaudio", "battery", "hyprland/language", "tray", "custom/divider"],
+    "modules-center": [/*"tray", */"clock"],
+    "modules-right": ["network", "cpu", "memory", "custom/email", "custom/xmr-profit", "pulseaudio", "battery", "hyprland/language", "custom/divider"],
 
     "custom/divider": {
         "format": " ",
@@ -51,7 +51,7 @@
     },
 
     "network": {
-        "interval": 5,
+        "interval": 1,
         "format-ethernet": "󰈀 {bandwidthTotalBytes}",
         "format-wifi": "  {bandwidthTotalBytes}",
         "format-disconnected": "󰇨 ",
@@ -157,7 +157,7 @@
     },
 
     "tray": {
-        "icon-size": 16,
+        "icon-size": 12,
         "spacing": 8
     }
 }

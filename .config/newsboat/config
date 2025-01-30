@@ -1,6 +1,6 @@
 # -= Configuration =-
 
-refresh-on-startup yes
+#refresh-on-startup yes
 browser "librewolf --new-tab %u"
 
 # -====================-
@@ -22,7 +22,7 @@ bind-key	k	up
 # -= Macros =-
 
 #macro v set browser "yt-dlp -N 20 -qf 'bv[height<=?1920][fps<=?60]+ba/b' %u -o - | mpv -" ; open-in-browser ; set browser "librewolf --new-tab %u"
-macro v set browser "mpv %u" ; open-in-browser ; set browser "librewolf --new-tab %u"
+macro v set browser "mpv --ytdl-format='bv[height<=?1920][fps<=?60]+ba/b' %u" ; open-in-browser ; set browser "librewolf --new-tab %u"
 macro t set browser "yt-dlp --write-thumbnail --no-download %u -o thumb.temp && nsxiv thumb.temp.webp && sleep 0.1 && rm thumb.temp*" ; open-in-browser ; set browser "librewolf --new-tab %u"
 
 macro a set browser "curl -s %u | mpv -" ; open-in-browser ; set browser "librewolf --new-tab %u"
